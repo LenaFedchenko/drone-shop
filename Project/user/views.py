@@ -3,6 +3,9 @@ from Project.db import DATA_BASE
 from .models import User
 from Project.config_page import config_page
 import flask_login
+from flask_mail import Message
+from Project.settings import mail
+import random
 
 
 def render_login():
@@ -19,7 +22,7 @@ def render_login():
         return flask.redirect("/")    
 
 
-@config_page("register.html")
+@config_page("register.html", "/verify_code")
 def render_register():
     message = ""
     if flask.request.method == 'POST':
@@ -31,22 +34,55 @@ def render_register():
         user_email = User.query.filter_by(email= email).first()
         if user_email is None :
             if password == confirm_password:
-                user = User(
-                    username = name,
-                    email = email,
-                    password = password
+                code = ""
+                for _ in range(6):
+                    code += str(random.randint(0, 9))
+
+                msg = Message(
+                    "Email confirm",
+                    recipients= [email],
+                    sender= "lenafedchenko07@gmail.com",
+                    body=code
                 )
-                DATA_BASE.session.add(user)
-                DATA_BASE.session.commit()
-                message = "Успішно"
+                mail.send(msg)
+                flask.session["verify_code"] = code
+                flask.session["name"] = name
+                flask.session["email"] = email
+                flask.session["password"] = password
+                message = "Successfully"
             else:
-                message = "Паролі не співпадають"
+                message = "Password didnt match"
         else:
-            message = "Такий користувач вже існує"
+            message = "User alredy exist"
 
 
     return {"message": message}
 
+
+
+
+
+def render_verify():
+    if flask.request.method == "POST":
+        verify_code = ""
+        for i in flask.request.form.values():
+            verify_code += i
+        if flask.session.get("verify_code") == verify_code:
+            user = User(
+                username = flask.session.get("name"),
+                email = flask.session.get("email"),
+                password = flask.session.get("password")
+            )
+            DATA_BASE.session.add(user)
+            DATA_BASE.session.commit()
+            flask.redirect("/")
+    return flask.render_template("verify_code.html")
+
+
+
+
 def logout():
     flask.session.clear()
     return flask.redirect("/")
+
+

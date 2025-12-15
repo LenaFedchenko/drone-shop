@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Login
+{% endblock %}
+
+{% block links %}
+    
+{% endblock %}
+
+{% block header %}
+    
+{% endblock %}
+
+{% block content %}
+    <div>
+        <form action="" method="post">
+            <p>Введіть код підтвердження</p>
+            <input type="number" name="verify_code1"  autofocus>
+            <input type="number" name="verify_code2" >
+            <input type="number" name="verify_code3" >
+            <input type="number" name="verify_code4">
+            <input type="number" name="verify_code5">
+            <input type="number" name="verify_code6">
+            <button type="submit">Підтвердити</button>
+        </form>
+    </div>
+{% endblock %}

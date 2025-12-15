@@ -16,3 +16,8 @@ user.user.add_url_rule(
     view_func= user.render_register, 
     methods=['GET', 'POST']
     )
+user.user.add_url_rule(
+    rule="/verify_code/",
+    view_func= user.render_verify,
+    methods=['GET', 'POST']
+)

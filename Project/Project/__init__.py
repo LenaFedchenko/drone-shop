@@ -1,5 +1,5 @@
 from .urls import *
-from .settings import project
+from .settings import *
 from .db import*
 from .loadenv import execute
 from user.models import User
