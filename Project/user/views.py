@@ -44,6 +44,23 @@ def render_register():
                     sender= "lenafedchenko07@gmail.com",
                     body=code
                 )
+                msg.html = f"""
+                    <html lang="en">
+                    <body style="margin: 0; padding: 0; background-color: #f4f4f4">
+                        <div style="max-width: 500px; margin:40px; background-color: #ffffff ;
+                        padding: 24px; border-radius: 6px; text-align: center">
+                            <h2 style="color: black">Підтвердження почти</h2>
+                            <p style="font-size: 16px; color:grey">Ваш код підтвердження:</p>
+                            <div style="font-size: 28px; font-weight: bolt; color: black; 
+                            margin: 20px; letter-spacing: 4px">
+                                {code}
+                            </div>
+                            <p style="font-size: 13px; color: #888">Якщо ви не реєструвалися проігноруйте цей лист</p>
+                        </div>
+                    </body>
+                    </html>
+                """
+                
                 mail.send(msg)
                 flask.session["verify_code"] = code
                 flask.session["name"] = name

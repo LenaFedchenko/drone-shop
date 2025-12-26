@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Catalog
+{% endblock %}
+
+{% block links %}
+    
+{% endblock %}
+
+
+{% block content %}
+    {% if products %}
+        {% for product in products %}
+            <div>
+                <h1>{{product.name}}</h1>
+                <img src="{{product.image_url}}" alt="">
+            </div>
+        {% endfor %}    
+    {% endif %}
+{% endblock %}
