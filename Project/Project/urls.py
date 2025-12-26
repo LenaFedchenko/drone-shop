@@ -1,4 +1,4 @@
-import user, home
+import user, home, catalog
 
 
 home.home.add_url_rule(
@@ -19,5 +19,10 @@ user.user.add_url_rule(
 user.user.add_url_rule(
     rule="/verify_code/",
     view_func= user.render_verify,
+    methods=['GET', 'POST']
+)
+catalog.catalog.add_url_rule(
+    rule="/catalog/",
+    view_func= catalog.render_catalog,
     methods=['GET', 'POST']
 )
