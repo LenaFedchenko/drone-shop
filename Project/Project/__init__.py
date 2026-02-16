@@ -11,3 +11,4 @@ from .loginmanager import *
 project.register_blueprint(blueprint= user.user)
 project.register_blueprint(blueprint= home.home)
 project.register_blueprint(blueprint= catalog.catalog)
+project.register_blueprint(blueprint= cart.cart)

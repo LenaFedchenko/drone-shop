@@ -11,7 +11,7 @@
 
 {% block content %}
     {% if products_list %}
-        <p>Count: <span id="count"></span></p>
+        <!-- <p>Count: <span id="count"></span></p> -->
         {% for product_object in products_list %}
             <div class="product_container">
                 <h1>{{product_object.product.name}}</h1>
@@ -22,6 +22,9 @@
                 <button class="deleteButton" value="{{product_object.product.id}}">-</button>
             </div>
         {% endfor %}    
+        <p>Total price <span id="total_price"></span></p>
+        <a href="/pay">Оплатити</a>
     {% endif %}
+
     <script src="{{ url_for('cart.static', filename='js/cart.js')}}" type="module"></script>
 {% endblock %}

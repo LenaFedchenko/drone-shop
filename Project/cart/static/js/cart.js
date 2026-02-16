@@ -1,13 +1,17 @@
-import { addToCart } from "./cart.js"
-import { deleteInCart } from "./cart.js"
+import { addToCart } from "./countProducts.js"
+import { deleteInCart } from "./countProducts.js"
 
 (
     async () => {
-        const response = await fetch("/count_products/")
-        const data = await response.json()
-        document.getElementById("count").textContent = data.productsCount
+        await countSum()
     }
 )()
+
+async function countSum() {
+    const response = await fetch("/count_sum/")
+    const data = await response.json()
+    document.getElementById("total_price").textContent = data.totalPrice
+}
 const addButtons = document.querySelectorAll(".addButton")
 addButtons.forEach((button) => {
     button.addEventListener("click", async ()=>{
@@ -15,6 +19,7 @@ addButtons.forEach((button) => {
         const container = button.closest(".product_container")
         const countProduct = container.querySelector(".renderCount")
         countProduct.textContent = result
+        countSum()
     })
 })
 
@@ -25,5 +30,6 @@ deleteButtons.forEach((button) => {
         const container = button.closest(".product_container")
         const countProduct = container.querySelector(".renderCount")
         countProduct.textContent = result
+        countSum()
     })
 })
