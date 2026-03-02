@@ -7,9 +7,22 @@ import flask_login
 import os
 
 def render_catalog():
+    categories = []
     page = request.args.get("page", 1, type= int)
-    pagination = Product.query.paginate(page=page, per_page=1)
-    return flask.render_template("catalog.html", products=pagination.items, pagination= pagination)
+    queryParam = request.args.get("category")
+    query = Product.query
+    if flask.request.method == "POST":
+        if queryParam == "filter":
+            category = request.form.get("categories")
+            if category != "all":
+                query = query.filter(Product.category == category)
+            else:
+                query = query.all()
+    pagination = query.paginate(page=page, per_page=2)
+    for product in Product.query.all():
+        if product.category not in categories:
+            categories.append(product.category)
+    return flask.render_template("catalog.html", products=pagination.items, pagination= pagination, categories=categories)
 
 def render_admin():
     if flask_login.current_user.is_authenticated and flask_login.current_user.isAdmin:
@@ -42,3 +55,9 @@ def delete_product():
         DATA_BASE.session.commit()
     return flask.redirect("/admin/")
 
+@config_page(name="product.html")
+def render_product_by_id(id: int):
+    product = Product.query.get(ident=id)
+    return {
+        "product": product
+    }

@@ -69,18 +69,22 @@ def delete_product_in_cart():
 
 
 def pay():
-    cookies_id = flask.request.cookies.get("id_list")
-    sum = count_products_price(cookies_id)
+    raw_id_list = flask.request.cookies.get("id_list") 
+    sum = count_products_price(raw_id_list=raw_id_list)
     TOKEN = os.environ["MONOBANK_TOKEN"]
     payload = {
-                "amount": int(sum) * 100,
-                "ccy": 980,
-                "redirectUrl": "http://127.0.0.1:8000",
-                }
-    headers = {
-        "X-Token" : TOKEN
+        "amount": sum * 100,
+        "ccy": 980,
+        "redirectUrl": "http://127.0.0.1:8000"
     }
-    response = requests.post("https://api.monobank.ua/api/merchant/invoice/create", json=payload, headers=headers)
-    result = response.json()
-    pay_url = result["pageUrl"]
+    headers = {
+        "X-Token": TOKEN
+    }
+    response = requests.post(
+        "https://api.monobank.ua/api/merchant/invoice/create",
+        json=payload,
+        headers=headers
+        )
+    request = response.json()
+    pay_url = request["pageUrl"]
     return flask.redirect(pay_url)
