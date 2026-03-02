@@ -58,3 +58,8 @@ cart.cart.add_url_rule(
     view_func= cart.pay,
     methods=['GET', 'POST']
 )
+catalog.catalog.add_url_rule(
+    rule="/catalog/<int:id>/",
+    view_func= catalog.render_product_by_id,
+    methods=['GET', 'POST']
+)
