@@ -61,3 +61,29 @@ def render_product_by_id(id: int):
     return {
         "product": product
     }
+
+
+def filter_products():
+    category_request = request.get_json()
+    selected_category = category_request["selectCategory"]
+    query = Product.query
+    if selected_category != "all":
+        query = query.filter(Product.category == selected_category)
+    products = query.all()
+    list_products = []
+    for product in products:
+        list_products.append({
+            "id": product.id,
+            "name": product.name, 
+            "description": product.description,
+            "image_url": product.image_url, 
+            "category": product.category,
+            "old_price": product.old_price,
+            "price": product.price
+        })
+    response = flask.make_response(flask.jsonify({
+        "status": "succes",
+        "filtrated_products": list_products
+    }))
+
+    return response

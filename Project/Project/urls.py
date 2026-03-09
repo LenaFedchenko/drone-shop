@@ -63,3 +63,8 @@ catalog.catalog.add_url_rule(
     view_func= catalog.render_product_by_id,
     methods=['GET', 'POST']
 )
+catalog.catalog.add_url_rule(
+    rule="/catalog/filter",
+    view_func= catalog.filter_products,
+    methods=['GET', 'POST']
+)
