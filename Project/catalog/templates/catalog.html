@@ -32,7 +32,7 @@
         </select>
     {% endif %}
     <div id="filter_products">
-        {% if products %}
+        <!-- {% if products %}
             {% for product in products %}
             
                 <a href="/catalog/{{product.id}}" class="product_container">
@@ -43,9 +43,12 @@
                     <button class="deleteButton" value="{{product.id}}">-</button>
                 </a>
             {% endfor %}    
-        {% endif %}
+        {% endif %} -->
     </div>
-    {% if pagination.has_prev %}
+    <div id="pagination">
+        
+    </div>
+    <!-- {% if pagination.has_prev %}
         <a href="?page={{pagination.prev_num}}">
             <img src="{{ url_for('catalog.static', filename='images/prev.png') }}" alt="prev">
         </a>
@@ -59,7 +62,7 @@
         <a href="?page={{pagination.next_num}}">
             <img src="{{ url_for('catalog.static', filename='images/next.png') }}" alt="next">
         </a>
-    {% endif %}
+    {% endif %} -->
     
     <script src="{{ url_for('cart.static', filename='js/countProducts.js')}}" deffer type="module"></script>
     <script src="{{ url_for('catalog.static', filename='js/filter.js')}}" deffer type="module"></script>
