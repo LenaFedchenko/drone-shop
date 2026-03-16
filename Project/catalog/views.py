@@ -69,7 +69,9 @@ def filter_products():
     query = Product.query
     if selected_category != "all":
         query = query.filter(Product.category == selected_category)
-    products = query.all()
+    page = category_request["page"]
+    pagination = query.paginate(page=page, per_page=2)
+    products = pagination.items
     list_products = []
     for product in products:
         list_products.append({
@@ -83,7 +85,15 @@ def filter_products():
         })
     response = flask.make_response(flask.jsonify({
         "status": "succes",
-        "filtrated_products": list_products
+        "filtrated_products": list_products,
+        "pagination": {
+            "page": pagination.page,
+            "total_count": pagination.pages,
+            "next_page": pagination.next_num,
+            "prev_num": pagination.prev_num,
+            "has_next": pagination.has_next,
+            "has_prev": pagination.has_prev
+        }
     }))
 
     return response
