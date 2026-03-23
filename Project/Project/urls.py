@@ -1,4 +1,4 @@
-import user, home, catalog, cart
+import user, home, catalog, cart, order
 
 
 home.home.add_url_rule(
@@ -66,5 +66,10 @@ catalog.catalog.add_url_rule(
 catalog.catalog.add_url_rule(
     rule="/catalog/filter",
     view_func= catalog.filter_products,
+    methods=['GET', 'POST']
+)
+order.order.add_url_rule(
+    rule= '/order/',
+    view_func= order.render_order,
     methods=['GET', 'POST']
 )

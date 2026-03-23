@@ -1,6 +1,18 @@
+import { addToCart, deleteInCart } from "../../../cart/static/js/countProducts.js"
+
 const categoriesObj = document.getElementById("categories")
 const productContainer = document.getElementById("filter_products")
 const paginationContainer = document.getElementById("pagination")
+
+
+productContainer.addEventListener("click", (event)=>{
+    if(event.target.classList.contains("addButton")){
+        addToCart(event.target.value)
+    }
+    if(event.target.classList.contains("deleteButton")){
+        deleteInCart(event.target.value)
+    }
+})
 
 async function filterProducts(page) {
     const response = await fetch("/catalog/filter", {
