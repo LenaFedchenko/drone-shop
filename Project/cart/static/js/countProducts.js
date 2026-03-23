@@ -12,12 +12,12 @@ export async function addToCart(idProduct) {
     return result.productsCount
 }
 
-const addButtons = document.querySelectorAll(".addButton")
-addButtons.forEach((button)=>{
-    button.addEventListener("click", ()=>{
-    addToCart(button.value)
-})
-})
+// const addButtons = document.querySelectorAll(".addButton")
+// addButtons.forEach((button)=>{
+//     button.addEventListener("click", ()=>{
+//     addToCart(button.value)
+// })
+// })
 
 
 export async function deleteInCart(idProduct) {
@@ -35,10 +35,10 @@ export async function deleteInCart(idProduct) {
 
 const deleteButtons = document.querySelectorAll(".deleteButton")
 
-deleteButtons.forEach((button) => {
-    button.addEventListener("click", ()=>{
-    deleteInCart(button.value)
-})
-})
+// deleteButtons.forEach((button) => {
+//     button.addEventListener("click", ()=>{
+//     deleteInCart(button.value)
+// })
+// })
 
 
