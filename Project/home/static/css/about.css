@@ -1,0 +1,44 @@
+:root {
+	--alert: #b62d11;
+	--success: #4dbc4b;
+	--blue-100: #0c122a;
+	--secondary-100: #cdd5dd;
+	--white-100: #fff;
+	--blue-80: #3d4155;
+	--blue-60: #6d717f;
+	--blue-40: #9ea0aa;
+	--blue-20: #ced0d4;
+	--blue-10: #e7e7ea;
+	--secondary-40: #f4f4f4;
+	--alert-50: rgba(182, 45, 17, 0.5);
+}
+
+.containerAbout{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 380px;
+    background: var(--white-100);
+}
+
+.promo{
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+.promo h2{
+    font-weight: 900;
+    font-size: 44px;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    text-align: center;
+    color: var(--secondary-100);
+}
+.promo p{
+    font-weight: 400;
+    font-size: 16px;
+    text-align: center;
+    color: var(--blue-100);
+}

@@ -6,6 +6,7 @@
 
 {% block links %}
     <link rel="stylesheet" href="{{ url_for('home.static', filename='css/big-header.css') }}">
+    <link rel="stylesheet" href="{{ url_for('home.static', filename='css/about.css') }}">
 {% endblock links %}
 
 {% block header %}
@@ -25,9 +26,24 @@
         </div>
         <div class="elipse1"></div>
     </div>
+
 {% endblock %}
 
 {% block content %}
-    <h2>Про нас</h2>
+    <div class="containerAbout">
+        <div class="promo">
+            <h2>
+                ПРО НАС
+            </h2>
+            <p>
+                Ми — команда, що об&#39;єднує технології та надійність. <br/>
+                Пропонуємо дрони й тепловізори, перевірені у найскладніших умовах. <br/>
+                Обираємо тільки те, чому довіряємо самі.
+            </p>
+            <div class="custom-button">
+                <a href="/catalog">ЧИТАТИ БІЛЬШЕ</a>
+            </div>
+        </div>
+    </div>
 {% endblock %}
 
