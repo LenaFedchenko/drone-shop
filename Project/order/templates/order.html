@@ -9,13 +9,35 @@
 {% endblock %}
 
 {% block content %}
-    <form action="" method="post">
-        <input type="text" id="second_name" placeholder="Ваше прізвище">
-        <input type="text" id="first_name" placeholder="Ваше Ім’я">
-        <input type="text" id="surname" placeholder="По Батькові">
-        <input type="tel" id="surname" placeholder="+ 38 ">
-        <input type="email" id="email" placeholder="Ваш E-mail">
-        <input type="text" id="message" placeholder="Що б ви хотіли уточнити">
-        <button type="submit">Підтвердити замовлення</button>
+
+    <form action="/pay" method="post">
+        <input type="text" name="second_name" placeholder="Ваше прізвище">
+        <input type="text" name="first_name" placeholder="Ваше Ім’я">
+        <input type="text" name="surname" placeholder="По Батькові">
+        <input type="tel" name="telephone" placeholder="+ 38 ">
+        <input type="email" name="email" placeholder="Ваш E-mail">
+        <input type="text" name="message" placeholder="Що б ви хотіли уточнити">
+        <input type="text" id="cityName" name="cityName">
+        <select id="warehouse" name="warehouse"></select>
+        <!-- <button type="submit">Підтвердити замовлення</button> -->
+
+        {% if products_list %}
+            {% for product_object in products_list %}
+                <div class="product_container">
+                    <h1>{{product_object.product.name}}</h1>
+                    <img src="{{ url_for('catalog.static', filename='media/' + product_object.product.image_url) }}" alt="">
+                    <p>{{product_object.product.description}}</p>
+                    <span class="renderCount">{{product_object.count}}</span>
+                    <button class="addButton" value="{{product_object.product.id}}">+</button>
+                    <button class="deleteButton" value="{{product_object.product.id}}">-</button>
+                </div>
+            {% endfor %}    
+            <p>Total price <span id="total_price"></span></p>
+            {% endif %}
+        <button type="submit">Оплатити</button>
+
+    
     </form>
+    <script src="{{ url_for('cart.static', filename='js/cart.js')}}" type="module"></script>
+    <script src="{{ url_for('order.static', filename='js/order.js')}}" type="module"></script>
 {% endblock %}

@@ -1,4 +1,5 @@
 from Project.db import DATA_BASE
+from Project.db_tables import product_order
 
 class Product(DATA_BASE.Model):
     id = DATA_BASE.Column(DATA_BASE.Integer, primary_key= True)
@@ -8,3 +9,9 @@ class Product(DATA_BASE.Model):
     image_url = DATA_BASE.Column(DATA_BASE.String(100), nullable=False)
     category = DATA_BASE.Column(DATA_BASE.String(50), nullable=False)
     description = DATA_BASE.Column(DATA_BASE.String(500), nullable=False)
+    order = DATA_BASE.relationship(
+        'Order',
+        secondary=product_order,
+        back_populates='products'
+    )
+    

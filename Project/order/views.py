@@ -1,24 +1,99 @@
-import flask
+import flask, requests
 from Project.db import DATA_BASE
 from .models import Order
+import os
+from catalog.models import Product
+from cart.utils import count_products_price
+
 
 def render_order():
+    product_list = []
+    cookies_id = flask.request.cookies.get("id_list")
+    if cookies_id:
+        id_list = cookies_id.split(sep="|")
+        id_list_copy = id_list.copy()
+        id_list_copy = set(id_list_copy)
+        for id in id_list_copy:
+            product = Product.query.get(id)
+            product_list.append({
+                "product" : product,
+                "count" : id_list.count(id)
+            })
+    
+    return flask.render_template('order.html', products_list=product_list)
+
+def get_warehouses(city_name: str):
+    TOKEN = os.environ["NOVA_POST_TOKEN"]
+    payload = {
+        "api_key": TOKEN,
+        "modelName": "Address",
+        "calledMethod": "getWarehouses",
+        "methodProperties": {
+            "CityName": city_name
+        }
+    }
+    response = requests.post(
+        "https://api.novaposhta.ua/v2.0/json/",
+        json=payload
+    )
+    result = response.json()
+    warehouses = []
+    for data in result["data"]:
+        warehouses.append(data["Description"])
+    response = flask.make_response(flask.jsonify({
+        "warehouses" : warehouses
+    }))
+    return response
+
+def pay():
+    product_list = []
+    cookies_id = flask.request.cookies.get("id_list")
+    if cookies_id:
+        id_list = cookies_id.split(sep="|")
+        id_list_copy = id_list.copy()
+        id_list_copy = set(id_list_copy)
+        for id in id_list_copy:
+            product = Product.query.get(id)
+            product_list.append({
+                "product" : product,
+                "count" : id_list.count(id)
+            })
     if flask.request.method == "POST":
         first_name = flask.request.form["first_name"]
         second_name = flask.request.form["second_name"]
         surname = flask.request.form["surname"]
-        phone = flask.request.form["phone"]
+        phone = flask.request.form["telephone"]
         email = flask.request.form["email"]
         message = flask.request.form["message"]
         order = Order(
-            first_name,
-            second_name,
-            surname,
-            phone,
-            email,
-            message
+            first_name= first_name,
+            second_name= second_name,
+            surname= surname,
+            phone= phone,
+            email= email,
+            message= message,
+            pay_method = "card"
         )
+        for product in product_list:
+            order.products.append(product["product"])
         DATA_BASE.session.add(order)
         DATA_BASE.session.commit()
-    return flask.render_template('order.html')
-
+    raw_id_list = flask.request.cookies.get("id_list") 
+    sum = count_products_price(raw_id_list=raw_id_list)
+    TOKEN = os.environ["MONOBANK_TOKEN"]
+    payload = {
+        "amount": sum * 100,
+        "ccy": 980,
+        "redirectUrl": "http://127.0.0.1:8000"
+    }
+    headers = {
+        "X-Token": TOKEN
+    }
+    response = requests.post(
+        "https://api.monobank.ua/api/merchant/invoice/create",
+        json=payload,
+        headers=headers
+        )
+    request = response.json()
+    pay_url = request["pageUrl"]
+    return flask.redirect(pay_url)

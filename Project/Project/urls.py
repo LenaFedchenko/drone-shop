@@ -53,9 +53,9 @@ cart.cart.add_url_rule(
     view_func= cart.delete_product_in_cart,
     methods=['GET', 'POST']
 )
-cart.cart.add_url_rule(
+order.order.add_url_rule(
     rule="/pay/",
-    view_func= cart.pay,
+    view_func= order.pay,
     methods=['GET', 'POST']
 )
 catalog.catalog.add_url_rule(
@@ -71,5 +71,10 @@ catalog.catalog.add_url_rule(
 order.order.add_url_rule(
     rule= '/order/',
     view_func= order.render_order,
+    methods=['GET', 'POST']
+)
+order.order.add_url_rule(
+    rule="/order/<city_name>",
+    view_func= order.get_warehouses,
     methods=['GET', 'POST']
 )
