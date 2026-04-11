@@ -31,7 +31,6 @@
 
 {% block content %}
     <div class="containerAbout">
-        <div class="promo">
             <h2>
                 ПРО НАС
             </h2>
@@ -43,6 +42,21 @@
             <div class="custom-button">
                 <a href="/catalog">ЧИТАТИ БІЛЬШЕ</a>
             </div>
+    </div>
+    <div class="new-container">
+        <p id="article">Нове на сайті</p>
+        <div class="products-container">
+            {% for product in products %}
+                <div class="item">
+                    <div class="image-box">
+                        <img src="{{ url_for('catalog.static', filename='media/' + product.image_url) }}" alt="{{product.name}}">
+                    </div>
+                    <div class="text-info">
+                        <h3>{{product.name}}</h3>
+                        <p>{{product.description}}</p>
+                  </div>
+                </div>
+            {% endfor %}
         </div>
     </div>
 {% endblock %}
