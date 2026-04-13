@@ -17,9 +17,33 @@
         <input type="tel" name="telephone" placeholder="+ 38 ">
         <input type="email" name="email" placeholder="Ваш E-mail">
         <input type="text" name="message" placeholder="Що б ви хотіли уточнити">
-        <input type="text" id="cityName" name="cityName">
-        <select id="warehouse" name="warehouse"></select>
-        <!-- <button type="submit">Підтвердити замовлення</button> -->
+        <label>
+            <input type="radio" name="delivery" value="parcel_machine"> Нова Пошта до поштомату
+        </label>
+        <label>
+            <input type="radio" name="delivery" value="warehouse"> Нова Пошта до відділення
+        </label>
+        <label>
+            <input type="radio" name="delivery" value="expres_delivery"> Експрес-доставка по Києву
+        </label>
+        <label>
+            <input type="radio" name="delivery" value="courier"> Нова Пошта кур’єром
+        </label>
+
+        <label>
+            <input type="radio" name="payment" value="cash"> Оплата при отриманні
+        </label>
+        <label>
+            <input type="radio" name="payment" value="card"> Оплатити зараз
+        </label>
+        
+
+        
+        <div style="display: none;" id="modal_for_delivery">
+            <input type="text" id="cityName" name="cityName">
+            <select id="warehouse" name="warehouse"></select>
+        </div>
+
 
         {% if products_list %}
             {% for product_object in products_list %}
