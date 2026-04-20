@@ -10,12 +10,11 @@ import random
 
 def render_login():
     if flask.request.method == "POST":
-        name = flask.request.form["username"]
+        email = flask.request.form["email"]
         password = flask.request.form["password"]
-        users = User.query.all()
-        for user in users:
-            if user.username == name and user.password == password:
-                flask_login.login_user(user)
+        user = User.query.filter_by(email=email).first() 
+        if user.email == email and user.password == password:
+            flask_login.login_user(user)
     if not flask_login.current_user.is_authenticated:
         return flask.render_template("login.html")
     else:
@@ -26,7 +25,7 @@ def render_login():
 def render_register():
     message = ""
     if flask.request.method == 'POST':
-        name = flask.request.form["username"]
+        name = flask.request.form["first_name"]
         email = flask.request.form["email"]
         password = flask.request.form["password"]
         confirm_password = flask.request.form["confirm_password"]
@@ -86,7 +85,7 @@ def render_verify():
             verify_code += i
         if flask.session.get("verify_code") == verify_code:
             user = User(
-                username = flask.session.get("name"),
+                first_name = flask.session.get("name"),
                 email = flask.session.get("email"),
                 password = flask.session.get("password")
             )
@@ -95,7 +94,28 @@ def render_verify():
             flask.redirect("/")
     return flask.render_template("verify_code.html")
 
+def render_contact():
+    if not flask_login.current_user.is_authenticated:
+        return flask.render_template("login.html")
+    
+    user = User.query.filter_by(id=flask_login.current_user.id).first()
+    if flask.request.method == "POST":
+        first_name = flask.request.form["first_name"]
+        last_name = flask.request.form["last_name"]
+        second_name = flask.request.form["second_name"]
+        date = flask.request.form["date"]
+        phone = flask.request.form["phone"]
+        email = flask.request.form["email"]
+        user.first_name = first_name
+        user.last_name = last_name
+        user.second_name = second_name
+        user.date_of_birth = date
+        user.phone = phone
+        user.email = email
+        DATA_BASE.session.commit()
 
+
+    return flask.render_template("contact-page.html", user=user)
 
 
 def logout():

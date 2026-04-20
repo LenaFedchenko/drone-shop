@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    contact
+{% endblock %}
+
+{% block links %}
+    <!-- <link rel="stylesheet" href="{{ url_for('home.static', filename='css/big-header.css') }}"> -->
+{% endblock links %}
+
+{% block header %}
+    
+{% endblock %}
+
+{% block content %}
+    <form action="" method="post">
+        <div>
+            <label>Прізвище</label>
+            <input type="text" name="last_name" value="{{user.last_name if user and user.last_name else ''}}">
+        </div>
+        <div>
+            <label>Ім’я</label>
+            <input type="text" name="first_name" value="{{user.first_name if user and user.first_name else ''}}" >
+        </div>
+        <div>
+            <label>По батькові</label>
+            <input type="text" name="second_name" value="{{user.second_name if user and user.second_name else ''}}">
+        </div>
+        <div>
+            <label>Дата народження</label>
+            <input type="text" name="date" value="{{user.date_of_birth if user and user.date_of_birth else ''}}">
+        </div>
+        <div>
+            <label>Телефон</label>
+            <input type="text" name="phone" value="{{user.phone if user and user.phone else ''}}">
+        </div>
+        <div>
+            <label>E-mail</label>
+            <input type="text" name="email" value="{{user.email if user and user.email else ''}}">
+        </div>
+        <button type="submit">Зберегти зміни</button>
+    </form>
+{% endblock %}
+

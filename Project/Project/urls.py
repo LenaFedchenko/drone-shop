@@ -78,3 +78,8 @@ order.order.add_url_rule(
     view_func= order.get_warehouses,
     methods=['GET', 'POST']
 )
+user.user.add_url_rule(
+    rule="/contact-page/",
+    view_func= user.render_contact,
+    methods=['GET', 'POST']
+)
