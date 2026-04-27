@@ -13,3 +13,5 @@ project.register_blueprint(blueprint= home.home)
 project.register_blueprint(blueprint= catalog.catalog)
 project.register_blueprint(blueprint= cart.cart)
 project.register_blueprint(blueprint= order.order)
+project.register_blueprint(blueprint= dashboard.dashboard)
+

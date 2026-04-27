@@ -1,12 +1,17 @@
-import flask, requests
+import flask, requests, flask_login
 from Project.db import DATA_BASE
 from .models import Order
+from user.models import User
 import os
 from catalog.models import Product
 from cart.utils import count_products_price
 
 
 def render_order():
+    if not flask_login.current_user.is_authenticated:
+        return flask.redirect("/login")
+    user_id = flask_login.current_user.id
+    user = User.query.filter_by(id=user_id).first()
     product_list = []
     cookies_id = flask.request.cookies.get("id_list")
     if cookies_id:
@@ -76,7 +81,7 @@ def pay():
         email = flask.request.form["email"]
         message = flask.request.form["message"]
         payment = flask.request.form["payment"]
-
+        user = flask_login.current_user.id
         order = Order(
             first_name= first_name,
             second_name= second_name,
@@ -85,7 +90,8 @@ def pay():
             email= email,
             message= message,
             pay_method = payment,
-            warehouse = ""
+            warehouse = "",
+            user=user
         )
         for product in product_list:
             order.products.append(product["product"])

@@ -1,4 +1,4 @@
-import user, home, catalog, cart, order
+import user, home, catalog, cart, order, dashboard
 
 
 home.home.add_url_rule(
@@ -78,8 +78,13 @@ order.order.add_url_rule(
     view_func= order.get_warehouses,
     methods=['GET', 'POST']
 )
-user.user.add_url_rule(
+dashboard.dashboard.add_url_rule(
     rule="/contact-page/",
-    view_func= user.render_contact,
+    view_func= dashboard.render_contact,
+    methods=['GET', 'POST']
+)
+dashboard.dashboard.add_url_rule(
+    rule="/my-orders/",
+    view_func= dashboard.render_orders,
     methods=['GET', 'POST']
 )

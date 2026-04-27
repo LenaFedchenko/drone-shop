@@ -12,3 +12,14 @@ class User(UserMixin, DATA_BASE.Model):
     email = DATA_BASE.Column(DATA_BASE.String(50), nullable=False, unique=True)
     password = DATA_BASE.Column(DATA_BASE.String(35), nullable=False)
     isAdmin = DATA_BASE.Column(DATA_BASE.Boolean, default=False)
+    order = DATA_BASE.relationship(
+        'Order',
+        backref='user',
+        lazy=True
+    )
+    delivery_adress = DATA_BASE.relationship(
+        'Delivery',
+        backref='user',
+        lazy=True,
+        cascade='all, delete-orphan'
+    )
