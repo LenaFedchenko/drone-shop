@@ -13,8 +13,9 @@ def render_login():
         email = flask.request.form["email"]
         password = flask.request.form["password"]
         user = User.query.filter_by(email=email).first() 
-        if user.email == email and user.password == password:
-            flask_login.login_user(user)
+        if user:
+            if user.email == email and user.password == password:
+                flask_login.login_user(user)
     if not flask_login.current_user.is_authenticated:
         return flask.render_template("login.html")
     else:
