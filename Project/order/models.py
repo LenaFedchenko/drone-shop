@@ -16,4 +16,4 @@ class Order(DATA_BASE.Model):
         secondary=product_order,
         back_populates='order'
     )
-    user = DATA_BASE.Column(DATA_BASE.Integer, DATA_BASE.ForeignKey('user.id'), nullable=False)
+    user_id = DATA_BASE.Column(DATA_BASE.Integer, DATA_BASE.ForeignKey('user.id'), nullable=False)

@@ -32,7 +32,7 @@ def render_orders():
     if not flask_login.current_user.is_authenticated:
         return flask.redirect("/login")
     user_id = flask_login.current_user.id
-    orders_list = Order.query.filter_by(id=user_id).all()
+    orders_list = Order.query.filter_by(user_id=user_id).all()
     
 
     return flask.render_template("my-orders.html", orders=orders_list)

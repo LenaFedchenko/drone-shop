@@ -48,6 +48,7 @@ def count_sum():
         "status": "succes",
         "totalPrice": sum
     }))
+    print(response)
 
     return response
 

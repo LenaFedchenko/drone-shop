@@ -81,7 +81,7 @@ def pay():
         email = flask.request.form["email"]
         message = flask.request.form["message"]
         payment = flask.request.form["payment"]
-        user = flask_login.current_user.id
+        user_id = flask_login.current_user.id
         order = Order(
             first_name= first_name,
             second_name= second_name,
@@ -91,7 +91,7 @@ def pay():
             message= message,
             pay_method = payment,
             warehouse = "",
-            user=user
+            user_id=user_id
         )
         for product in product_list:
             order.products.append(product["product"])

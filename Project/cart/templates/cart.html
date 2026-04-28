@@ -14,10 +14,12 @@
         <!-- <p>Count: <span id="count"></span></p> -->
         {% for product_object in products_list %}
             <div class="product_container">
-                <h1>{{product_object.product.name}}</h1>
-                <img src="{{ url_for('catalog.static', filename='media/' + product_object.product.image_url) }}" alt="">
-                <p>{{product_object.product.description}}</p>
-                <span class="renderCount">{{product_object.count}}</span>
+                {% if product_object.product %}
+                    <h1>{{product_object.product.name}}</h1>
+                    <img src="{{ url_for('catalog.static', filename='media/' + product_object.product.image_url) }}" alt="">
+                    <p>{{product_object.product.description}}</p>
+                    <span class="renderCount">{{product_object.count}}</span>
+                {% endif %}
                 <button class="addButton" value="{{product_object.product.id}}">+</button>
                 <button class="deleteButton" value="{{product_object.product.id}}">-</button>
             </div>
