@@ -2,13 +2,10 @@ import flask, flask_login
 from user.models import User
 from order.models import Order
 from Project.db import DATA_BASE
+from .models import Delivery
 
 
-
-def render_contact():
-    if not flask_login.current_user.is_authenticated:
-        return flask.redirect("/login")
-    
+def create_contact():
     user = User.query.filter_by(id=flask_login.current_user.id).first()
     if flask.request.method == "POST":
         first_name = flask.request.form["first_name"]
@@ -24,21 +21,42 @@ def render_contact():
         user.phone = phone
         user.email = email
         DATA_BASE.session.commit()
+        return flask.make_response(flask.jsonify({
+            "status": 200
+        }))
 
 
-    return flask.render_template("contact-page.html", user=user)
 
-def render_orders():
-    if not flask_login.current_user.is_authenticated:
-        return flask.redirect("/login")
+def create_delivery():
     user_id = flask_login.current_user.id
-    orders_list = Order.query.filter_by(user_id=user_id).all()
-    
+    if flask.request.method == "POST":
+        city = flask.request.form["city"]
+        streat = flask.request.form["streat"]
+        house = flask.request.form["house"]
+        block = flask.request.form["block"]
+        flat = flask.request.form["flat"]
+        delivery = Delivery(
+            city=city,
+            streat=streat,
+            house=house,
+            block=block,
+            user_id=user_id,
+            flat = flat,
+            is_selected = False
+        )
+        DATA_BASE.session.add(delivery)
+        DATA_BASE.session.commit()
+        return flask.make_response(flask.jsonify({
+            "status": 200
+        }))
 
-    return flask.render_template("my-orders.html", orders=orders_list)
 
-def render_delivery():
+def render_dashboard():
     if not flask_login.current_user.is_authenticated:
         return flask.redirect("/login")
     user_id = flask_login.current_user.id
     user = User.query.filter_by(id=user_id).first()
+    adresses = Delivery.query.filter_by(user_id=user.id).all()
+    orders = Order.query.filter_by(user_id=user.id).all()
+
+    return flask.render_template("dashboard.html", user=user, orders=orders, adresses=adresses)

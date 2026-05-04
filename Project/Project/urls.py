@@ -80,11 +80,16 @@ order.order.add_url_rule(
 )
 dashboard.dashboard.add_url_rule(
     rule="/contact-page/",
-    view_func= dashboard.render_contact,
+    view_func= dashboard.create_contact,
     methods=['GET', 'POST']
 )
 dashboard.dashboard.add_url_rule(
-    rule="/my-orders/",
-    view_func= dashboard.render_orders,
+    rule="/delivery-info/",
+    view_func= dashboard.create_delivery,
+    methods=['GET', 'POST']
+)
+dashboard.dashboard.add_url_rule(
+    rule="/dashboard/",
+    view_func= dashboard.render_dashboard,
     methods=['GET', 'POST']
 )

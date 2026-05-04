@@ -1,3 +1,3 @@
 from .app import dashboard
-from .views import render_contact, render_orders
+from .views import *
 from .models import Delivery

@@ -1,0 +1,22 @@
+<div>
+    {% if adresses %}
+        {% for adress in adresses %}
+            <div>
+                <label>
+                    <input type="radio" name="is_selected" {% if adress.is_selected %}
+                        checked
+                    {% endif %}>
+                    {{adress.city}}, {{adress.streat}}, {{adress.house}}
+                </label>
+            </div>
+        {% endfor %}
+    {% endif %}
+    <form action="/delivery-info" method="post">
+        <input type="text" name="city">
+        <input type="text" name="streat">
+        <input type="text" name="house">
+        <input type="text" name="flat">
+        <input type="text" name="block">
+        <button type="submit">Зберегти зміни</button>
+    </form>
+</div>

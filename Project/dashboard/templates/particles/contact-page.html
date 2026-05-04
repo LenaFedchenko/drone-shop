@@ -1,19 +1,6 @@
-{% extends 'base.html' %}
+<div>
 
-{% block title %}
-    contact
-{% endblock %}
-
-{% block links %}
-    <!-- <link rel="stylesheet" href="{{ url_for('home.static', filename='css/big-header.css') }}"> -->
-{% endblock links %}
-
-{% block header %}
-    
-{% endblock %}
-
-{% block content %}
-    <form action="" method="post">
+    <form action="/contact-page" method="post">
         <div>
             <label>Прізвище</label>
             <input type="text" name="last_name" value="{{user.last_name if user and user.last_name else ''}}">
@@ -40,5 +27,5 @@
         </div>
         <button type="submit">Зберегти зміни</button>
     </form>
-{% endblock %}
 
+</div>
