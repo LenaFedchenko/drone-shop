@@ -54,6 +54,12 @@
     cursor: pointer;
 }
 
+.custom-button a{
+    text-decoration: none;
+    color:  #fff;
+}
+
+
 .elipse1{
     width: 120vw;
     height: 90vh;
