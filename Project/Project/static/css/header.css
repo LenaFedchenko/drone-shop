@@ -264,9 +264,29 @@ nav{
 
 .verify-inputs input {
     width: 34px;
+    height: 34px;
+
+    padding: 0;
+
     text-align: center;
+
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 34px;
+
+    color: #0c122a;
+    background-color: #ffffff;
+
+    border: 1px solid #d1d5db;
+    border-radius: 4px;
+
+    outline: none;
 }
 
+.verify-inputs input:focus {
+    border-color: #0c122a;
+    box-shadow: 0 0 0 1px #0c122a;
+}
 .modal-error {
     margin-top: 8px;
 

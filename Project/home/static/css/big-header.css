@@ -1,69 +1,102 @@
-.big-header{
+.big-header {
+    position: relative;
+    width: 100%;
+    height: 720px;
+
     display: flex;
     justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    /* background-color: #CDD5DD;
-    width: 100vh; */
+    align-items: flex-start;
+
+    background-color: #CDD5DD;
+    overflow: hidden;
 }
-.text{
-    position: relative;
-    display: flex;
-    color: rgb(255, 255, 255);
+
+.text {
+    position: absolute;
+    top: 100px;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    z-index: 3;
+
+    color: white;
     text-align: center;
 }
 
-.text p{
+.text p {
+    margin: 0;
+
     font-weight: 900;
     font-size: 61px;
-    font-style: bold;
+    line-height: 1.2;
+
     text-transform: uppercase;
 }
 
-.image{
+.image {
     position: absolute;
-    transform: rotate(11deg);
-    top: 130px;
+    top: 190px;
+    left: 50%;
+
+    width: 620px;
+    max-width: 65vw;
+
+    transform: translateX(-50%) rotate(11deg);
+
+    z-index: 4;
 }
 
-.promo{
+.promo {
     position: absolute;
+    top: 420px;
+    right: 18%;
+
     display: flex;
-    justify-content: space-between;
     flex-direction: column;
     gap: 31px;
-    top: 700px;
-    right: 150px;
+
+    z-index: 5;
 }
 
+.promo p {
+    margin: 0;
 
-.promo p{
     font-weight: 400;
     font-size: 16px;
     color: black;
 }
 
-.custom-button{
+.custom-button {
     border-radius: 100px;
-    padding: 18px 40px 18px 40px;
-    /* width: 188px;
-    height: 52px; */
+    padding: 18px 40px;
+
     background-color: #0C122A;
+
     text-align: center;
     color: white;
+
     cursor: pointer;
 }
 
-.custom-button a{
+.custom-button a {
     text-decoration: none;
-    color:  #fff;
+    color: white;
 }
 
+.elipse1 {
+    position: absolute;
 
-.elipse1{
-    width: 120vw;
-    height: 90vh;
+    width: 170vw;
+    height: 650px;
+
+    left: 50%;
+    bottom: -420px;
+
+    transform: translateX(-50%);
+
     background-color: white;
     border-radius: 50%;
-    overflow: hidden;
+
+    z-index: 2;
 }
