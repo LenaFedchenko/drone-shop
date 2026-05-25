@@ -24,6 +24,7 @@ def render_catalog():
             categories.append(product.category)
     return flask.render_template("catalog.html", products=pagination.items, pagination= pagination, categories=categories)
 
+# lalalabebebeb
 def render_admin():
     if flask_login.current_user.is_authenticated and flask_login.current_user.isAdmin:
         page = request.args.get("page", 1, type= int)
