@@ -27,19 +27,37 @@ def add_to_cart():
 
 def render_cart():
     product_list = []
+
     cookies_id = flask.request.cookies.get("id_list")
+
     if cookies_id:
         id_list = cookies_id.split(sep="|")
-        id_list_copy = id_list.copy()
-        id_list_copy = set(id_list_copy)
+        id_list_copy = set(id_list)
+
         for id in id_list_copy:
             product = Product.query.get(id)
-            product_list.append({
-                "product" : product,
-                "count" : id_list.count(id)
-            })
-    return flask.render_template("cart.html", products_list = product_list)
 
+            product_list.append({
+                "product": product,
+                "count": id_list.count(id)
+            })
+
+    if flask.request.args.get("modal") == "1":
+        html = flask.render_template(
+            "cart_modal.html",
+            products_list=product_list
+        )
+
+        return flask.jsonify({
+            "success": False,
+            "html": html,
+            "modal": "cart"
+        })
+
+    return flask.render_template(
+        "cart.html",
+        products_list=product_list
+    )
 
 def count_sum():
     id = flask.request.cookies.get("id_list")
