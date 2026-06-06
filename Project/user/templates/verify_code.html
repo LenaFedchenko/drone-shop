@@ -5,7 +5,7 @@
         <button class="modal-tab active" type="button">Підтвердження</button>
     </div>
 
-    <form action="/verify_code" method="post" class="modal-form">
+    <form action="/verify_code/" method="post" class="modal-form" id="verify_form">
         <label>Введіть код підтвердження</label>
 
         <div class="verify-inputs">
@@ -16,6 +16,10 @@
             <input type="text" name="verify_code5" maxlength="1" inputmode="numeric">
             <input type="text" name="verify_code6" maxlength="1" inputmode="numeric">
         </div>
+
+        {% if errors and errors.verify_code %}
+            <p class="modal-error">{{ errors.verify_code }}</p>
+        {% endif %}
 
         <div class="modal-actions">
             <button type="button" class="cancel-btn modal-cancel">СКАСУВАТИ</button>

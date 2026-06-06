@@ -7,21 +7,63 @@
         <button class="modal-tab active" type="button">Реєстрація</button>
     </div>
 
-    <form action="/register" method="post" id="register_form" class="modal-form">
+    <form action="/register/" method="post" id="register_form" class="modal-form">
         <label>Ім'я</label>
-        <input type="text" placeholder="Введіть ім'я" name="first_name" required minlength="3">
+
+        <input 
+            type="text" 
+            placeholder="Введіть ім'я" 
+            name="first_name" 
+            required 
+            minlength="3"
+            class="{% if errors and errors.first_name %}input-error{% endif %}"
+        >
+
+        {% if errors and errors.first_name %}
+            <p class="modal-error">{{ errors.first_name }}</p>
+        {% endif %}
 
         <label>Email</label>
-        <input type="email" placeholder="Введіть email" name="email" required>
+
+        <input 
+            type="email" 
+            placeholder="Введіть email" 
+            name="email" 
+            required
+            class="{% if errors and errors.email %}input-error{% endif %}"
+        >
+
+        {% if errors and errors.email %}
+            <p class="modal-error">{{ errors.email }}</p>
+        {% endif %}
 
         <label>Пароль</label>
-        <input type="password" placeholder="Введіть пароль" name="password" required minlength="8">
+
+        <input 
+            type="password" 
+            placeholder="Введіть пароль" 
+            name="password" 
+            required 
+            minlength="8"
+            class="{% if errors and errors.password %}input-error{% endif %}"
+        >
+
+        {% if errors and errors.password %}
+            <p class="modal-error">{{ errors.password }}</p>
+        {% endif %}
 
         <label>Підтвердження пароля</label>
-        <input type="password" placeholder="Повторіть пароль" name="confirm_password" required>
 
-        {% if message %}
-            <p class="modal-error">{{ message }}</p>
+        <input 
+            type="password" 
+            placeholder="Повторіть пароль" 
+            name="confirm_password" 
+            required
+            class="{% if errors and errors.confirm_password %}input-error{% endif %}"
+        >
+
+        {% if errors and errors.confirm_password %}
+            <p class="modal-error">{{ errors.confirm_password }}</p>
         {% endif %}
 
         <div class="modal-actions">

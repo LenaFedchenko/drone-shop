@@ -6,53 +6,57 @@
         {% block links %}{% endblock links %}
         <link rel="stylesheet" href="{{ url_for('static', filename='css/header.css') }}">
         <link rel="stylesheet" href="{{ url_for('static', filename='css/footer.css') }}">
+        <link rel="stylesheet" href="{{ url_for('cart.static', filename='css/cart.css') }}">
     </head>
     <body>
-        <header>
-            <div class="modal-bg" id="modal_bg"></div>
+<header>
+    <div class="modal-bg" id="modal_bg"></div>
 
-            <div class="modal-window" id="login_div">
-                {% include 'login.html' %}
-            </div>
+    <div class="modal-window" id="login_div">
+        {% include 'login.html' %}
+    </div>
 
-            <div class="modal-window" id="register_div">
-                {% include 'register.html' %}
-            </div>
+    <div class="modal-window" id="register_div">
+        {% include 'register.html' %}
+    </div>
 
-            <div class="modal-window" id="verify_div">
-                {% include 'verify_code.html' %}
-            </div>
-            <nav>
-                <div class="navigation">
-                    <a href="/catalog">Каталог</a>
-                    <a href="">Про нас</a>
-                    <a href="">Контакти</a>
-                </div>
+    <div class="modal-window" id="verify_div">
+        {% include 'verify_code.html' %}
+    </div>
 
-                <a href="/">
-                    <img src="{{ url_for('static', filename='images/Logo.svg') }}" alt="logo">
+    <div class="modal-window cart-modal-window" id="cart_div"></div>
+
+    <nav>
+        <div class="navigation">
+            <a href="/catalog/">Каталог</a>
+            <a href="">Про нас</a>
+            <a href="">Контакти</a>
+        </div>
+
+        <a href="/">
+            <img src="{{ url_for('static', filename='images/Logo.svg') }}" alt="logo">
+        </a>
+
+        <div class="auth">
+            <a href="/cart/" id="cart_btn">
+                <img src="{{ url_for('static', filename='images/bag.png') }}" alt="cart">
+            </a>
+
+            {% if current_user.is_authenticated %}
+                <a href="/dashboard/">
+                    <img src="{{ url_for('static', filename='images/user.svg') }}" alt="user">
                 </a>
+            {% else %}
+                <button id="login">
+                    <img src="{{ url_for('static', filename='images/user.svg') }}" alt="user">
+                </button>
+            {% endif %}
+        </div>
+    </nav>
 
-                <div class="auth">
-                    <a href="/cart">
-                        <img src="{{ url_for('static', filename='images/bag.png') }}" alt="cart">
-                    </a>
-                    {% if current_user.is_authenticated %}
-                        <a href="/dashboard">
-                            <img src="{{ url_for('static', filename='images/user.svg') }}" alt="user">
-                        </a>
-                    {% else %}
-                        <button id="login">
-                            <img src="{{ url_for('static', filename='images/user.svg') }}" alt="user">
-                        </button>
-                    {% endif %}
-
-                </div>
-            </nav>
-            {% block header %}
-                
-            {% endblock %}
-        </header>
+    {% block header %}
+    {% endblock %}
+</header>
 
         <main>
             {% block content %}

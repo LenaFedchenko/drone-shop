@@ -287,9 +287,17 @@ nav{
     border-color: #0c122a;
     box-shadow: 0 0 0 1px #0c122a;
 }
-.modal-error {
-    margin-top: 8px;
 
-    font-size: 11px;
-    color: #dc2626;
+.modal-error {
+    margin: 4px 0 10px;
+    color: #e63946;
+    font-size: 13px;
+    line-height: 1.3;
+}
+
+.cart-modal-window {
+    width: 100%;
+    max-width: 900px;
+    max-height: 90vh;
+    overflow-y: auto;
 }

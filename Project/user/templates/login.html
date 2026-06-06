@@ -7,16 +7,39 @@
         <button class="modal-tab" type="button" id="render_register">Реєстрація</button>
     </div>
 
-    <form action="/login" method="post" class="modal-form">
+    <form action="/login/" method="post" class="modal-form" id="login_form">
         <label>Email</label>
-        <input type="email" name="email" required minlength="3" placeholder="Введіть email">
+
+        <input 
+            type="email" 
+            name="email" 
+            required 
+            minlength="3" 
+            placeholder="Введіть email"
+            class="{% if errors and errors.email %}input-error{% endif %}"
+        >
+
+        {% if errors and errors.email %}
+            <p class="modal-error">{{ errors.email }}</p>
+        {% endif %}
 
         <label>Пароль</label>
 
         <div class="password-field">
-            <input type="password" name="password" required minlength="8" placeholder="Введіть пароль">
+            <input 
+                type="password" 
+                name="password" 
+                required 
+                minlength="8" 
+                placeholder="Введіть пароль"
+                class="{% if errors and errors.password %}input-error{% endif %}"
+            >
             <span>⌘</span>
         </div>
+
+        {% if errors and errors.password %}
+            <p class="modal-error">{{ errors.password }}</p>
+        {% endif %}
 
         <a href="#" class="forgot-password">Забули пароль?</a>
 
